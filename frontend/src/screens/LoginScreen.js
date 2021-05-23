@@ -40,12 +40,12 @@ const LoginScreen = ({ location, history }) => {
       <Form onSubmit={submitHandler}>
         <Form.Group controlId='email'>
           <Form.Label>Email Address</Form.Label>
-          <Form.Control type='email' placeHolder='Enter Email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
+          <Form.Control type='email' placeholder='Enter Email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
         </Form.Group>
 
         <Form.Group controlId='password'>
           <Form.Label>Password</Form.Label>
-          <Form.Control type='password' placeHolder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
+          <Form.Control type='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
         </Form.Group>
 
         <Button type='submit' variant='primary'>
