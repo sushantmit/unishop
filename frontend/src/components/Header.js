@@ -3,7 +3,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../actions/userActions';
 
-const Header = () => {
+const Header = ({ history }) => {
 
   const dispatch = useDispatch();
 
@@ -12,6 +12,9 @@ const Header = () => {
 
   const logoutHandler = () => {
     dispatch(logout());
+    if (history) {
+      history.push('/logout');
+    }
   }
 
   return (
@@ -42,6 +45,25 @@ const Header = () => {
                 <LinkContainer to="/login">
                   <Nav.Link><i className='fas fa-user'></i> Sign In</Nav.Link>
                 </LinkContainer>
+              )}
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown title='Admin' id='adminmenu'>
+                  <LinkContainer to='/admin/userlist'>
+                    <NavDropdown.Item>
+                      Users
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/productlist'>
+                    <NavDropdown.Item>
+                      Products
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/orderlist'>
+                    <NavDropdown.Item>
+                      Orders
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown> 
               )}
             </Nav>
           </Navbar.Collapse>
