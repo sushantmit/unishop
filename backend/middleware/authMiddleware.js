@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
 
+// protection middleware to allow route access to only logged in users
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
@@ -23,6 +24,7 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
+//protection middleware to allow route access to only admin users
 const adminProtect = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
     next();

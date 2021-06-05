@@ -3,6 +3,7 @@ import Product from '../models/productModel.js';
 import User from './../models/userModel.js';
 import generateToken from '../utils/generateToken.js';
 
+// Public - POST /api/users/login
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   
@@ -22,6 +23,7 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
+// Private - GET /api/users/profile
 const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
   if(user) {
@@ -37,11 +39,13 @@ const getUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
+// Private Admin - GET /api/users
 const getUsers = asyncHandler(async (req, res) => {
   const users = await User.find({});
   res.json(users);
 });
 
+// Private Admin - GET /api/users/:id
 const getUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id).select('-password');
   if(user) {
@@ -52,6 +56,7 @@ const getUserById = asyncHandler(async (req, res) => {
   }
 });
 
+// Private Admin - DELETE /api/users/:id
 const deleteUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
@@ -66,6 +71,7 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
+// Public - POST /api/users
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
   
@@ -96,6 +102,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+// Private - PUT /api/users/profile
 const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
   if(user) {
@@ -120,6 +127,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
+// Private Admin - PUT /api/users/:id
 const updateUser = asyncHandler(async (req, res) => {
 
   const user = await User.findById(req.params.id);
