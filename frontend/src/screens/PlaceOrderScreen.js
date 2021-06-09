@@ -7,6 +7,7 @@ import CheckoutSteps from '../components/CheckoutSteps'
 import { createOrder } from '../actions/orderActions'
 import { ORDER_CREATE_RESET } from '../constants/orderConstants'
 import { USER_DETAILS_RESET } from '../constants/userConstants'
+import { CART_ITEMS_RESET } from '../constants/cartConstants';
 
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -57,7 +58,8 @@ const PlaceOrderScreen = ({ history }) => {
         taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
       })
-    )
+    );
+    dispatch({ type: CART_ITEMS_RESET })
   }
 
   return (
