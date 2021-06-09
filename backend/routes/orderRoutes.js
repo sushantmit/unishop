@@ -1,18 +1,19 @@
-import express from 'express';
+import express from 'express'
+const router = express.Router()
 import {
   addOrderItems,
   getOrderById,
   updateOrderToPaid,
+  updateOrderToDelivered,
   getMyOrders,
-  getOrders
-} from '../controllers/orderController.js';
-import { protect, adminProtect } from '../middleware/authMiddleware.js';
+  getOrders,
+} from '../controllers/orderController.js'
+import { protect, adminProtect } from '../middleware/authMiddleware.js'
 
-const router = express.Router();
-
-router.route('/').post(protect, addOrderItems).get(protect, adminProtect, getOrders);
-router.route('/myorders').get(protect, getMyOrders);
-router.route('/:id').get(protect, getOrderById);
+router.route('/').post(protect, addOrderItems).get(protect, adminProtect, getOrders)
+router.route('/myorders').get(protect, getMyOrders)
+router.route('/:id').get(protect, getOrderById)
 router.route('/:id/pay').put(protect, updateOrderToPaid)
+router.route('/:id/deliver').put(protect, adminProtect, updateOrderToDelivered)
 
 export default router;

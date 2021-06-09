@@ -1,4 +1,5 @@
 import path from 'path';
+import morgan from 'morgan';
 import express from 'express'
 import dotenv from 'dotenv'
 import colors from 'colors'
@@ -12,6 +13,10 @@ import uploadRoutes from './routes/uploadRoutes.js';
 dotenv.config();
 
 const app = express();
+
+if(process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 app.use(express.json());
 

@@ -49,7 +49,7 @@ const getOrderById = asyncHandler(async (req, res) => {
   }
 })
 
-// Private - PUT /api/orders/:id/pay
+// Private - PUT /api/orders/:id/deliver
 const updateOrderToPaid = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id)
 
@@ -70,7 +70,27 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
     res.status(404)
     throw new Error('Order not found')
   }
-})
+});
+
+// Private Admin - PUT /api/orders/:id/deliver
+const updateOrderToDelivered = asyncHandler(async (req, res) => {
+
+  console.log('Reached here')
+  
+  const order = await Order.findById(req.params.id)
+
+  if (order) {
+    order.isDelivered = true;
+    order.deliveredAt = Date.now()
+
+    const updatedOrder = await order.save()
+
+    res.json(updatedOrder)
+  } else {
+    res.status(404)
+    throw new Error('Order not found')
+  }
+});
 
 // Private - GET /api/myorders
 const getMyOrders = asyncHandler(async (req, res) => {
@@ -88,6 +108,7 @@ export {
   addOrderItems,
   getOrderById,
   updateOrderToPaid,
+  updateOrderToDelivered,
   getMyOrders,
   getOrders
 };
